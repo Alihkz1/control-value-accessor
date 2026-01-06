@@ -1,4 +1,4 @@
-<div class="wrapper">
+<!-- <div class="wrapper">
   <form class="form" [formGroup]="form">
   <span>Name Input:</span>
   <input type="text" formControlName="name">
@@ -7,4 +7,10 @@
 </form>
 
 <button (click)="log()" [disabled]="!form.touched">Log Form Value</button>
-</div>
+</div> -->
+
+<button (click)="showLeak = !showLeak">Toggle Memory leak component display</button>
+
+@if(showLeak){
+<app-memory-leak></app-memory-leak>
+}
