@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { interval } from 'rxjs';
 
 @Component({
@@ -8,7 +8,7 @@ import { interval } from 'rxjs';
   styleUrl: './memory-leak.component.scss'
 })
 export class MemoryLeakComponent implements OnInit {
-
+  header = input.required()
   ngOnInit(): void {
     interval(1000).subscribe(console.log)
   }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { MemoryLeakComponent } from './memory-leak/memory-leak.component';
@@ -12,7 +12,10 @@ import { MemoryLeakComponent } from './memory-leak/memory-leak.component';
 export class AppComponent {
   title = 'controlValueAccessor';
   fb = inject(FormBuilder);
+  vcr = inject(ViewContainerRef);
   showLeak = false
+
+  constructor() { }
 
   form: FormGroup = this.fb.group(
     {
@@ -21,7 +24,13 @@ export class AppComponent {
     }
   );
 
-  log() {
-    console.info(this.form.value)
+  toggle() {
+    this.showLeak = !this.showLeak
+    if (this.showLeak) {
+      const component: any = this.vcr.createComponent(MemoryLeakComponent)
+      component.instance.header = 'meow'
+    } else {
+      this.vcr.clear()
+    }
   }
 }
