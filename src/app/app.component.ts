@@ -1,25 +1,26 @@
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { CheckboxComponent } from './checkbox/checkbox.component';
+import { Component, OnInit } from '@angular/core';
+import { IApp } from './app.interface';
+import { appModel } from './app.model';
 
 @Component({
   selector: 'app-root',
-  imports: [CheckboxComponent, ReactiveFormsModule],
+  imports: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'controlValueAccessor';
-  fb = inject(FormBuilder);
+export class AppComponent extends appModel implements IApp, OnInit {
+  appTitle = 'interface adventure';
+  canLoad = () => console.log('Hello');
 
-  form: FormGroup = this.fb.group(
-    {
-      name: new FormControl(),
-      isTall: new FormControl({ value: true, disabled: false })
-    }
-  );
+  constructor(){
+    super('meow')
+  }
 
-  log() {
-    console.info(this.form.value)
+  override canModel(): void {
+    console.log('appComponent class')
+  }
+
+  ngOnInit(): void {
+    this.canModel()
   }
 }
